@@ -11,13 +11,10 @@ DEST = /tars
 TAR_NAME = ${NAME}-${VERSION}.tar.gz
 
 build_docker_image:
-	echo ${NAME}
-	echo ${VERSION}
-	echo ${IMAGE}
 	docker build --build-arg NAME=${NAME} --build-arg VERSION=${VERSION} -f ./Dockerfile -t ${IMAGE} .
 
 make_tar_in_docker:
-	docker run --rm -v ${SRC}:${DEST} -e NAME=${NAME} -e VERSION=${VERSION} ${IMAGE} bash -c "copy tar"
+	docker run --rm -v ${SRC}:${DEST} -e NAME=${NAME} -e VERSION=${VERSION} ${IMAGE} bash -c "make copy tar"
 
 copy:
 	rm -rf /result
